@@ -1,0 +1,98 @@
+.settings-container{
+    width:74%;
+    top:70px;
+    max-width: 275px;
+    bottom:0;
+    background-color: #fbfbfb;
+}
+.btn{
+    display: block; //esto hace que el diplay-in-line de btn se machaque y asi el icono no se me ponga en linea ya que al ocupar meno se pone en linea. Si no funcioan pones important
+}
+@media (max-width: 576px){ 
+    .boton1{
+        background-color: red;
+        display:block !important;
+    }
+    .boton2{
+        background-color: black !important; //al ser la pantalla mas pequeña hay que poner important para que apareza cuando se hace mas pequeño.
+        font-size: 10px;
+        color: white;
+    }
+    .boton3 {
+        span {
+            display: none;
+        }
+        i {
+            font-size: larger;
+        }
+    }
+}
+@media (max-width: 796px){
+    .boton1{
+        display:none;
+    }
+}
+@media (max-width: 992px){
+    .boton2{
+        background-color: green;
+        
+    }
+}
+.boton3{
+    background-color: yellow;
+    display:flex; //pa poder usar gap (solo funciona con d-flex d-grid row)
+    align-items: center;
+    justify-content: center;//lo centramos con el span
+    column-gap: 15px; //deja espacio a la izq y drch 
+
+}
+@media (min-width: 1200px){
+    .boton3{
+        display: none;
+    }
+}
+//////////////////////////
+.boton4{
+    width: 200px;
+    background-color: blue;
+}
+@media (max-width: 992px){
+    .boton4{
+        width: 80%;
+    }
+}
+//////////////////////////
+.boton5{
+    background-color: orange;
+}
+@media (min-width:769px) and (max-width:992px){
+    .boton5{
+        display: none;
+    }
+}
+////////////////////////////
+.boton6{
+    height: 300px;
+}
+@media (max-height:700px){
+    .boton6{
+        height: 100px;
+    }
+}
+@media (min-height: 800px){
+    .boton6{
+        display: none;
+    }
+}
+////////////////////////////
+.grid-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 20px;
+}
+ 
+@media (max-width: 769px){
+    .grid-container{
+        grid-template-columns: 1 fr;
+    }
+}

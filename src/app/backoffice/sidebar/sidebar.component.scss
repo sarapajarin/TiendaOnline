@@ -1,0 +1,9 @@
+.sidebar-container{
+    overflow-x: hidden;
+
+    &.hide-me{
+        span, h2{
+            display: none !important;
+        }
+    }
+}

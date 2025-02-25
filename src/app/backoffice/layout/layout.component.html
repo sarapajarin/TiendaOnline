@@ -1,0 +1,14 @@
+
+<app-header-backoffice></app-header-backoffice>
+<!--contenedor padre-->
+<div class="web-container" [class.collapsed]="!isActiveSidebar"> <!--CONTENEDOR PADRE CON DIPLAY GRID: MI 1º HIJO 70% Y MI 2º HIJO 30%-->
+    <!--contenedor hijo 1-->
+    <div>
+        <router-outlet></router-outlet>
+    </div>
+    <!--contenedor hijo 2-->
+    <div>
+        <app-sidebar></app-sidebar> <!--hay que ponerlo en la parte de import de layout-->
+    </div>
+</div>
+

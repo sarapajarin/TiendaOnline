@@ -1,0 +1,13 @@
+.web-container{
+    width: 100%;
+    height: calc(100vh - 70px); //hay que crear contenedor padre con tamaño definido para poder usar el heigth;
+                                // los calculos de la altural total de la pantalla menos el heigth del header
+    display: grid; //para dividir el contendor padre. Con columns se divide de  forma vertical y con rows se divide de forma horizontal;
+    //grid-template-columns: 80% 20%;-->se divide con %
+    //grid-template-columns: 80% 20px;--> le ponemos px a la segunda columna (sidebar) para que cunado sea la pantalla de un movil no desaparezca sino que siempre va a tenre 20 px.
+    grid-template-columns: 1fr 225px; //ponemos fr para decirle que coja una fracción de la pantalla;
+                                    // es como decir que se coja el espacio restante
+    &.collapsed{
+        grid-template-columns: 1fr 64px !important;
+    }
+}
