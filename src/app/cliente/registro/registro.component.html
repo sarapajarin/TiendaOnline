@@ -1,12 +1,15 @@
 <<div class="d-flex justify-content-center align-items-center contenedor">
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">  
+    <form method="post" [formGroup]="loginForm" (ngSubmit)="onSubmit()">  
         <div class="form-group mb-3 mt-3 h-100 border rounded-3 p-5 shadow">
 
             <label class="form-label">Nombre</label>
-            <input type="text" class="form-control mb-1" formControlName="name">
+            <input id="name" type="text" class="form-control mb-1" formControlName="name">
 
-            <label class="form-label">Email</label>
-            <input type="email" class="form-control mb-1" formControlName="email">
+            <label class="form-label">Apellido</label>
+            <input id="firstName" type="text" class="form-control mb-1" formControlName="firstName">
+
+            <label class="form-label">Dirección</label>
+            <input id="address" type="address" class="form-control mb-1" formControlName="address">
 
             <label class="form-label">Contraseña</label>
             <input type="password" class="form-control mb-1" formControlName="password">

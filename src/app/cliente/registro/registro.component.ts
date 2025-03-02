@@ -18,8 +18,9 @@ export class RegistroComponent {
 
   constructor(private fr:FormBuilder){
     this.loginForm = this.fr.group({
-      email: ['', [Validators.required, Validators.email]],
+      firtsName: ['', [Validators.required, Validators.minLength(3)]],
       name: ['', [Validators.required, Validators.minLength(3)]],
+      address: ['', [Validators.required, Validators.minLength(3)]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
     })

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule,FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RouterLink, RouterModule } from '@angular/router';
+import { LoginInterface } from '../../services/interfaces/auth';
+import { CredentialsService } from '../../services/auth/credentials.service';
 
 @Component({
   selector: 'app-login',
@@ -15,19 +17,28 @@ import { RouterLink, RouterModule } from '@angular/router';
 })
 export class LoginComponent {
 loginForm: FormGroup
-  constructor(private fb: FormBuilder) { 
+  constructor(private fb: FormBuilder, private credentialsService: CredentialsService) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      username: ['', [Validators.required, Validators.minLength(3)]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     })
   }
   onSubmit() {
     if(this.loginForm.valid) {
-      console.log(this.loginForm.value)
       window.location.href='/app'
+      this.credentialsService.login(this.loginForm.value as LoginInterface).subscribe({
+        next: (data: any) => {
+          console.log(data);
+        },
+        error: (err: any) => {
+          console.log(err);
+        }
+      });
     }else{
       console.log('Formulario no valido')
       alert('Formulario no valido')
     }
+
+    
   }
 }
