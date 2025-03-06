@@ -4,6 +4,7 @@ import { Router, RouterLink, RouterModule } from '@angular/router';
 import { LoginInterface } from '../../services/interfaces/auth';
 import { CredentialsService } from '../../services/auth/credentials.service';
 import { TokenService } from '../../services/auth/token.service';
+import { UseStateService } from '../../services/auth/use-state.service';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,8 @@ loginForm: FormGroup
     private fb: FormBuilder, 
     private credentialsService: CredentialsService,
     private tokenService: TokenService,
-    private router: Router
+    private router: Router,
+    private useStateService: UseStateService
   ) {
     this.loginForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(3)]],
@@ -35,6 +37,7 @@ loginForm: FormGroup
       this.credentialsService.login(this.loginForm.value as LoginInterface).subscribe({
         next: (data: any) => {
           this.tokenService.saveTokens(data.token, "234");
+          this.useStateService.save(data.username, data.role);
           this.router.navigate(['/app/control-panel']);
           console.log(data);
         },
