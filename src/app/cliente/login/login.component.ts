@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule,FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RouterLink, RouterModule } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import { LoginInterface } from '../../services/interfaces/auth';
 import { CredentialsService } from '../../services/auth/credentials.service';
+import { TokenService } from '../../services/auth/token.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,12 @@ import { CredentialsService } from '../../services/auth/credentials.service';
 })
 export class LoginComponent {
 loginForm: FormGroup
-  constructor(private fb: FormBuilder, private credentialsService: CredentialsService) {
+  constructor(
+    private fb: FormBuilder, 
+    private credentialsService: CredentialsService,
+    private tokenService: TokenService,
+    private router: Router
+  ) {
     this.loginForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(3)]],
       password: ['', [Validators.required, Validators.minLength(6)]]
@@ -28,6 +34,8 @@ loginForm: FormGroup
       window.location.href='/app'
       this.credentialsService.login(this.loginForm.value as LoginInterface).subscribe({
         next: (data: any) => {
+          this.tokenService.saveTokens(data.token, "234");
+          this.router.navigate(['/app/control-panel']);
           console.log(data);
         },
         error: (err: any) => {

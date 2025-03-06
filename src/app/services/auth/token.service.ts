@@ -15,7 +15,7 @@ export class TokenService {
   ) { }
 
   saveTokens(token: string, refreshToken: string): void {
-    this.cookieService.set(this.ACCESS_TOKEN_KEY, token{
+    this.cookieService.set(this.ACCESS_TOKEN_KEY, token,{
       path: "/", //para que afecte a todas las páginas de la web
       secure: enviroment.tokenSecure, //en produccion cambiar a true
       sameSite: "Strict"
