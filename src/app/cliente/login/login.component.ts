@@ -5,6 +5,7 @@ import { LoginInterface } from '../../services/interfaces/auth';
 import { CredentialsService } from '../../services/auth/credentials.service';
 import { TokenService } from '../../services/auth/token.service';
 import { UseStateService } from '../../services/auth/use-state.service';
+import { PopupService } from '../../services/utils/popup.service';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,8 @@ loginForm: FormGroup
     private credentialsService: CredentialsService,
     private tokenService: TokenService,
     private router: Router,
-    private useStateService: UseStateService
+    private useStateService: UseStateService,
+    private popupService: PopupService
   ) {
     this.loginForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(3)]],
@@ -36,13 +38,30 @@ loginForm: FormGroup
       window.location.href='/app'
       this.credentialsService.login(this.loginForm.value as LoginInterface).subscribe({
         next: (data: any) => {
+
+          this.popupService.loader("Cargando...", "Espere un momento");
+
+          setTimeout(() => {
           this.tokenService.saveTokens(data.token, "234");
           this.useStateService.save(data.username, data.role);
+          this.popupService.close();
           this.router.navigate(['/app/control-panel']);
           console.log(data);
+          }, 1500)
         },
         error: (err: any) => {
           console.log(err);
+          let message;
+          if(err.error == "Invalid passworid") {
+            message = "Contraseña incorrecta";
+          }
+          else if(err.error == "User not found") {
+            message = "El usuario no existe, compruebe los datos o restrate";
+          }
+          else{
+            message = err.error;
+          }
+          this.popupService.showMessage('Ups ha ocurrido un error', message, 'error');
         }
       });
     }else{
