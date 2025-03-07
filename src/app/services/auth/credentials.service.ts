@@ -15,4 +15,7 @@ export class CredentialsService {
   login(credentials: LoginInterface): Observable<any> {
     return this.http.post<any>(`${enviroment.apiUrl}/login`, {});
   }
+  register(credentials: LoginInterface): Observable<any> {
+    return this.http.post<any>(`${enviroment.apiUrl}/register`, {});
+  }
 }
